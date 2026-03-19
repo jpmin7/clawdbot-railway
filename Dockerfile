@@ -56,10 +56,11 @@ RUN apt-get update \
     git \
   && rm -rf /var/lib/apt/lists/*
 
-# Install Homebrew
-RUN useradd -m -s /bin/bash linuxbrew \
-  && NONINTERACTIVE=1 bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" \
-  && chown -R linuxbrew:linuxbrew /home/linuxbrew
+# Install Homebrew (installer refuses to run as root, so switch user)
+RUN useradd -m -s /bin/bash linuxbrew
+USER linuxbrew
+RUN NONINTERACTIVE=1 bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+USER root
 ENV PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:${PATH}"
 ENV HOMEBREW_NO_AUTO_UPDATE=1
 
