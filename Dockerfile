@@ -49,7 +49,19 @@ RUN apt-get update \
     tini \
     python3 \
     python3-venv \
+    build-essential \
+    procps \
+    curl \
+    file \
+    git \
   && rm -rf /var/lib/apt/lists/*
+
+# Install Homebrew
+RUN useradd -m -s /bin/bash linuxbrew \
+  && NONINTERACTIVE=1 bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" \
+  && chown -R linuxbrew:linuxbrew /home/linuxbrew
+ENV PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:${PATH}"
+ENV HOMEBREW_NO_AUTO_UPDATE=1
 
 # `openclaw update` expects pnpm. Provide it in the runtime image.
 RUN corepack enable && corepack prepare pnpm@10.23.0 --activate
