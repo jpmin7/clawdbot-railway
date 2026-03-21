@@ -4,6 +4,7 @@ npm-debug.log*
 
 # Local env
 .env
+.env.*
 
 # Build artifacts
 /dist
@@ -13,3 +14,21 @@ npm-debug.log*
 
 # OS
 .DS_Store
+
+# OpenClaw runtime data (sessions, config, tokens, cron state)
+.openclaw/
+
+# Workspace personal files (agent identity, memory, user info)
+AGENTS.md
+SOUL.md
+IDENTITY.md
+USER.md
+TOOLS.md
+HEARTBEAT.md
+MEMORY.md
+memory/
+
+# Credentials & secrets
+credentials.json
+*.secret
+oauth*.json
