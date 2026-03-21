@@ -48,6 +48,60 @@ Then:
 - Complete setup
 - Visit `https://<your-app>.up.railway.app/` and `/openclaw` (same Basic auth)
 
+## Installed skills & capabilities
+
+### Channels (messaging integrations)
+
+| Channel    | Setup                          |
+|------------|--------------------------------|
+| Telegram   | Bot token via @BotFather       |
+| Discord    | Bot token + OAuth invite       |
+| Slack      | Bot token + app-level token    |
+
+### Supported auth groups (AI providers)
+
+- **OpenAI** — Codex OAuth or API key
+- **Anthropic** — Claude Code CLI or API key
+- **Google** — Gemini API key or OAuth
+- **OpenRouter** — API key
+- **Vercel AI Gateway** — API key
+- **Copilot** — GitHub device login or proxy
+- **Moonshot AI** — API key
+- **Z.AI / GLM 4.7** — API key
+- **MiniMax** — API key (standard & lightning)
+- **Qwen** — OAuth
+- **Synthetic** — Anthropic-compatible multi-model
+- **OpenCode Zen** — multi-model proxy
+
+### Management commands (via `/setup` Debug Console)
+
+| Command                             | Description                        |
+|-------------------------------------|------------------------------------|
+| `openclaw status`                   | Gateway / system status            |
+| `openclaw health`                   | Health check                       |
+| `openclaw doctor`                   | Diagnostics & auto-fix             |
+| `openclaw logs --tail N`            | View recent logs                   |
+| `openclaw version`                  | Version info                       |
+| `openclaw devices list`             | List pending device requests       |
+| `openclaw devices approve <id>`     | Approve a device pairing request   |
+| `openclaw plugins list`             | List available plugins             |
+| `openclaw plugins enable <name>`    | Enable a plugin                    |
+| `openclaw config get <path>`        | Read a config value                |
+| `openclaw config set <path> <value>`| Set a config value                 |
+
+### Key endpoints
+
+| Path                   | Description                              |
+|------------------------|------------------------------------------|
+| `/`                    | OpenClaw Gateway (reverse-proxied)       |
+| `/openclaw`            | Control UI dashboard                     |
+| `/setup`               | Web setup wizard (password-protected)    |
+| `/setup/api/status`    | Status info                              |
+| `/setup/api/auth-groups` | Available auth methods                 |
+| `/setup/api/config/raw`| Config read/write                        |
+| `/setup/api/console/run` | Debug console                          |
+| `/healthz`             | Public health check                      |
+
 ## Support / community
 
 - GitHub Issues: https://github.com/vignesh07/clawdbot-railway-template/issues
@@ -85,7 +139,8 @@ What persists cleanly today:
 
 What does *not* persist cleanly:
 - `apt-get install ...` (installs into `/usr/*`)
-- Homebrew installs (typically `/opt/homebrew` or similar)
+
+> **Note:** Homebrew (Linuxbrew) is pre-installed in the runtime image, so `brew install` works out of the box. Packages installed via `brew` at runtime will not persist across redeploys — add them to `bootstrap.sh` if needed.
 
 ### Optional bootstrap hook
 
