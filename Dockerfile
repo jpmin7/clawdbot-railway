@@ -54,6 +54,7 @@ RUN apt-get update \
     curl \
     file \
     git \
+    lsof \
   && rm -rf /var/lib/apt/lists/*
 
 # Install Homebrew (installer refuses to run as root, so switch user)
