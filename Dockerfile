@@ -64,6 +64,10 @@ USER root
 ENV PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:${PATH}"
 ENV HOMEBREW_NO_AUTO_UPDATE=1
 
+# Wrap brew so it always runs as the linuxbrew user (Homebrew refuses to run as root)
+RUN printf '%s\n' '#!/usr/bin/env bash' 'exec su - linuxbrew -c "/home/linuxbrew/.linuxbrew/bin/brew $*" -- "$@"' > /usr/local/bin/brew \
+  && chmod +x /usr/local/bin/brew
+
 # `openclaw update` expects pnpm. Provide it in the runtime image.
 RUN corepack enable && corepack prepare pnpm@10.23.0 --activate
 
